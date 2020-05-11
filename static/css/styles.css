@@ -1,0 +1,113 @@
+#sidenav {
+  background-color: #fe6a65;
+}
+
+
+
+#mmenu_screen > .row {
+    min-height: 100vh;
+}
+
+.flex-fill {
+    flex:1 1 auto;
+}
+
+h1 {
+  color: white;
+}
+
+h5 {
+  color: white;
+}
+#sidenav a {
+  color:white;
+
+}
+
+#sidenav li:hover {
+  background-color: #f05f5a;
+  cursor: pointer;
+}
+#sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.chat{
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .card{
+			height: 100vh;
+			border-radius: 15px !important;
+    }
+
+.card-footer{
+		border-radius: 0 0 15px 15px !important;
+			border-top: 0 !important;
+	}
+
+  #title_channel {
+
+  }
+
+  #action_menu {
+    cursor: pointer;
+  }
+
+
+  @media screen and (min-width: 760px) {
+    #sidenav .closebtn {
+      display: none;
+    }
+  }
+
+  .msg_card_body {
+    overflow-y: auto
+  }
+  .msg_container{
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: 10px;
+		border-radius: 25px;
+		background-color: #82ccdd;
+		padding: 10px;
+		position: relative;
+	}
+.user_name{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+}
+  .msg_time {
+		position: absolute;
+		left: 0;
+		bottom: -15px;
+		color: rgba(170,166,166,0.5);
+		font-size: 10px;
+	}
+  .msg_container_send{
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-right: 10px;
+		border-radius: 25px;
+		background-color: #78e08f;
+		padding: 10px;
+		position: relative;
+  }
+  .msg_time_send{
+		position: absolute;
+		right:0;
+		bottom: -15px;
+		color: rgba(170,166,166,0.5);
+		font-size: 10px;
+	}
+
+input[type="file"] {
+    display: none;
+}
