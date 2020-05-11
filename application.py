@@ -75,6 +75,6 @@ def send_img(message):
     sender.append(msg_now)
     emit("sent msg", sender, broadcast=True )
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
 
-    app.run(debug=True, host="0.0.0.0")
+    #app.run(debug=True, host="0.0.0.0")
