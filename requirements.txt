@@ -2,3 +2,11 @@ Flask
 Flask-SocketIO
 Flask-Session
 gunicorn
+click
+dnspython
+eventlet
+Jinja2
+python-engineio
+python-socketio
+six
+Werkzeug
