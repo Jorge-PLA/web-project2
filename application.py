@@ -8,6 +8,10 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
+if __name__ == '__main__':
+
+    socketio.run(app)
+
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
@@ -74,7 +78,3 @@ def send_img(message):
     sender = []
     sender.append(msg_now)
     emit("sent msg", sender, broadcast=True )
-
-if __name__ == '__main__':
-
-    socketio.run(app)
