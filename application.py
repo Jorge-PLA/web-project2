@@ -11,9 +11,9 @@ socketio = SocketIO(app)
 
 
 # Configure session to use filesystem
-app.config["SESSION_PERMANENT"] = True
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+#app.config["SESSION_PERMANENT"] = True
+#app.config["SESSION_TYPE"] = "filesystem"
+#Session(app)
 
 actual_channel= "# General"
 channels = ["# General"]
