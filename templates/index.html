@@ -37,7 +37,11 @@
                       <div class="d-flex justify-content-end mb-4">
                         <div class="msg_container_send">
                           <span class="user_name">{{this.[0]}}:</span>
-                          {{this.[1]}}
+                          {{#if this.[3]}}
+                            {{{this.[1]}}}
+                          {{else}}
+                            {{this.[1]}}
+                          {{/if}}
                           <span class="msg_time_send">{{this.[2]}}</span>
                         </div>
                           <div class="img_cont_msg">
