@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-socketio = SocketIO(app)
+socketio = SocketIO(app, manage_session=False)
 
 
 
@@ -15,9 +15,9 @@ app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-session['actual_channel'] = "# General"
-session['channels'] = ["# General"]
-session['messages'] = {"# General":[]}
+#actual_channel= "# General"
+channels = ["# General"]
+messages ={"# General":[]}
 
 @app.route("/")
 def index():
@@ -26,53 +26,57 @@ def index():
 @app.route("/create", methods=["POST"])
 def create():
     new_channel ='# ' + request.form.get("new_channel")
-    if new_channel in session['channels']:
+    if new_channel in channels:
         return ('', 204)
-    session['channels'].append(new_channel)
-    session['messages'][new_channel] = []
-    last = len(session['channels']) - 1
+    channels.append(new_channel)
+    messages[new_channel] = []
+    last = len(channels) - 1
 
-    return session['channels'][last]
+    return channels[last]
 
 @app.route("/load_channels", methods=["POST"])
 def load_channels():
 
-    return jsonify(session['channels'])
+    return jsonify(channels)
 
 #Route for load the messages of the channel
 @app.route("/load_messages",  methods=["POST"])
 def load_messages():
-    #global actual_channel
-    session['actual_channel'] = request.form.get("current_channel")
-    return (jsonify(session['messages'][session['actual_channel']]), actual_channel)
+
+    actual_channel = request.form.get("current_channel")
+    session['actual_channel'] = actual_channel
+    return (jsonify(messages[actual_channel]), actual_channel)
 
 @socketio.on("send msg")
 def send_msg(message):
+
+    actual_channel = session.get('actual_channel')
     im = False
     nickname = message['nickname']
     msg = message['msg']
     msg_time = message['msg_time']
     msg_now = tuple([nickname, msg, msg_time, im])
-    session['messages'][session['actual_channel']].append(msg_now)
+    messages[actual_channel].append(msg_now)
     #if there are more than 100 messages it will erase it
-    if len(session['messages'][session['actual_channel']]) > 100:
-        session['messages'][session['actual_channel']].pop(0)
+    if len(messages[actual_channel]) > 100:
+        messages[actual_channel].pop(0)
     sender = []
     sender.append(msg_now)
     emit("sent msg", sender, broadcast=True )
 
 @socketio.on("send img")
 def send_img(message):
+    actual_channel = session.get('actual_channel')
     #send if the sender is an img
     im = True
     nickname = message['nickname']
     msg = message['msg']
     msg_time = message['msg_time']
     msg_now = tuple([nickname, msg, msg_time, im])
-    session['messages'][session['actual_channel']].append(msg_now)
+    messages[actual_channel].append(msg_now)
     #if there are more than 100 messages it will erase it
-    if len(session['messages'][session['actual_channel']]) > 100:
-        session['messages'][session['actual_channel']].pop(0)
+    if len(messages[actual_channel]) > 100:
+        messages[actual_channel].pop(0)
     sender = []
     sender.append(msg_now)
     emit("sent msg", sender, broadcast=True )
